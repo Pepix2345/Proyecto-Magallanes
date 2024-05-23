@@ -1,0 +1,26 @@
+---
+title: "Redes"
+author: "Charles Gabriel Sánchez Salas"
+date: "2024-05-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list=ls())
+library(igraph)
+```
+
+```{r}
+elites=read.graph("EliteNed.gml", format="gml")
+```
+```{r}
+summary(elites)
+```
+```{r}
+plot(elites, edge.arrow.size=.4,vertex.label=V(elites)$label,edge.curved=.1, main= "Redes empresariales")
+```
+
