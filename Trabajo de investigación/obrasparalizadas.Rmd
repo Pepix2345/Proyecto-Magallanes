@@ -1,0 +1,50 @@
+---
+title: "Análisis temporal"
+author: "Charles Gabriel Sánchez Salas"
+date: "2024-05-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(rio)
+library(ggplot2)
+library(ggcorrplot)
+library(reticulate)
+use_python("C:/Users/Charles/anaconda3")
+```
+
+```{r}
+rm(list = ls())
+```
+
+```{r}
+obraslink= "https://github.com/Pepix2345/Proyecto-Magallanes/raw/main/Trabajo%20de%20investigaci%C3%B3n/data/obras_long.pkl"
+```
+
+```{r}
+pd<-import("pandas")
+```
+
+
+```{r}
+obrastats<- pd$read_pickle(obraslink)
+```
+
+```{r}
+str(obrastats)
+```
+
+```{r}
+graf1= ggplot(data=obrastats,
+               aes(x=ano,y=value,color=modalidad)) + theme_light() +
+    scale_y_log10(labels=scales::comma)
+graf1 +    
+    geom_smooth()  + 
+    facet_grid(variable~.,scales = 'free_y') 
+```
+
