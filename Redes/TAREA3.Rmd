@@ -1,0 +1,22 @@
+---
+title: "Tarea 3 - Monzon Hadaly"
+author: "H"
+date: "2024-05-22"
+output: html_document
+---
+
+```{r}
+rm(list = ls()) # clear memory
+library(igraph)
+```
+```{r}
+MG=read.graph("EliteNet.gml", format = "gml")
+```
+```{r}
+summary(MG)
+```
+
+```{r}
+plot(MG, vertex.color = V(MG)$color, vertex.label = V(MG)$label,edge.curved=.1, main = "Network Elites")
+```
+
