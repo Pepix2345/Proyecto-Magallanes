@@ -1,0 +1,42 @@
+---
+title: "Ineficiencia_obras"
+author: "Charles Gabriel Sánchez Salas"
+date: "2024-05-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Primer Gráfico*
+```{r}
+#Lectura de la base
+url= "https://raw.githubusercontent.com/bocchienjoyer/MaGODllanes/main/ProyectoMagaDeidad/ano_riesgo.xls"
+
+obras_riesgo= read.csv(url)
+
+summary(obras_riesgo)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Calcular el puntaje promedio por año y modalidad
+obras_riesgo_promedio <- obras_riesgo %>%
+  group_by(ano, modalidad_ejecucion) %>%
+  summarise(puntaje_promedio = mean(puntaje, na.rm = TRUE))
+
+# Crear el gráfico
+ggplot(data=obras_riesgo_promedio, aes(x=ano, y=puntaje_promedio, color=modalidad_ejecucion)) +
+  geom_smooth(se=TRUE, method="loess") +
+  scale_color_manual(values=c("Administracion directa" = "red", "Contrata" = "yellow")) +
+  theme_light() +
+  labs(title="Evolución del puntaje promedio \nde las obras a través de los años",
+       x="Año",
+       y="Puntaje promedio",
+       color="Modalidad de ejecución") +
+  theme(plot.title = element_text(hjust = 0.4, face="bold", size=18))
+
+```
